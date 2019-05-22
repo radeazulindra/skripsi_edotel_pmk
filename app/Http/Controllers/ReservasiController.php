@@ -84,7 +84,6 @@ class ReservasiController extends Controller
         $walkInRegist = true;
         if ($id!=NULL) {
             $walkInRegist = false;
-
         }
         $title = 'Form Registrasi';
         return view('resepsionis.reservasi.create', compact('title','reservasi','walkInRegist'));
@@ -166,24 +165,7 @@ class ReservasiController extends Controller
             ->get();
         echo json_encode($reservasi);
     }
-
-    public function ajaxTamuHotel(){
-        $tamu = DB::table('tagihan_tamu')
-            ->select('tamu_hotel.id as id_tamu','kamar.id as id_kamar',
-            'tagihan_tamu.id as id_tagihan_tamu',
-            'tamu_hotel.tanggal_checkin as tanggal_checkin',
-            'tamu_hotel.tanggal_checkout as tanggal_checkout',
-            'tamu_hotel.status as status_tamu_hotel',)
-            ->rightJoin('kamar', 'kamar.id', '=', 'tagihan_tamu.id_kamar')
-            ->leftJoin('tamu_hotel', 'tamu_hotel.id', '=', 'tagihan_tamu.id_tamu')
-            ->where('tagihan_tamu.nama_tagihan', 'like', 'Kamar%')
-            ->whereNotIn('tamu_hotel.status',["Check-Out"])
-            ->orderBy('tamu_hotel.id', 'asc')
-            ->get();
-        echo json_encode($tamu);
-    }
-
-
+    
     /**
      * Display the specified resource.
      *

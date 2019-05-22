@@ -39,7 +39,9 @@
                             <td>{{ $item->tanggal_checkout }}</td>
                             <td>{{ $item->status }}</td>
                             <td>
-                                <a href="{{ route('guestin.show', ['id'=>$item->id]) }}"><button class="btn btn-success btn-sm">View</button></a><br>
+                                <a href="{{ route('guestin.show', ['id'=>$item->id]) }}">
+                                    <button class="btn btn-info btn-sm">View</button>
+                                </a>
                            </td>
                         </tr>
                         @endforeach

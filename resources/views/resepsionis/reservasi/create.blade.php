@@ -3,33 +3,12 @@
 @section('content')
 
 <style>
-    .room {
-        float: left;
-        display: block;
-        margin: 5px;
-        background: lightgreen;
-        width: 100px;
-        height: 50px;
-        text-align: center;
-        cursor: pointer;
-        border-radius: 5px;
-        line-height: 25px;
-    }
-
-    .room-select {
-        display: none;
-    }
-
     .room-select:checked+.room {
         background: lightskyblue;
     }
 
     label.selected {
         background: lightskyblue;
-    }
-
-    label.occupied {
-        background: lightcoral;
     }
 </style>
     
@@ -147,13 +126,14 @@
         var dateTo = document.getElementById("dateTo").value;
         window.dtFrom = new Date(dateFrom);
         window.dtTo = new Date(dateTo);
-
+        var tempLantai = -1;
         if (dateFrom != '' && dateTo != '' && dateTo > dateFrom) {
             $("#daftar_kamar").empty();
-            for (let i = 0; i < window.listKamar.length; i++) {
+            for (let i = window.listKamar.length-1; i >= 0 ; i--) {
+                var setHTML = '';
                 var kamar = window.listKamar[i];
                 var idKamar = kamar[0];
-                var noKamar = kamar[1];
+                var noKamar = kamar[1];                
                 var tipeKamar = kamar[2];
                 var hargaKamar = kamar[3];
                 var statusKamar = kamar[4] == "Dalam Perbaikan" ? "disabled" : "";
@@ -166,9 +146,20 @@
                     statusKamar = "disabled";
                 }
                 var lamaMenginap = parseInt((window.dtTo-window.dtFrom)/(24*3600*1000)) ;
-                var setHTML = '<input id="room-'+idKamar+'" onclick="setTotalHarga('+hargaKamar+','+idKamar+','+lamaMenginap+')" class="room-select" '+statusKamar+' type="checkbox" value="'+idKamar+'" name="room[]" /><label for="room-'+idKamar+'" class="room '+isOccupied+'">'+noKamar+'<br>'+tipeKamar+' Room</label>';
-                
-                $("#daftar_kamar").append(setHTML);
+                if(tempLantai == -1){
+                    tempLantai = noKamar.charAt(0);
+                    console.log("init"+tempLantai);
+                    var setDiv = '<div id="lantai'+tempLantai+'"> </div><hr>'
+                    $("#daftar_kamar").append(setDiv);
+                }
+                if(noKamar.charAt(0) != tempLantai){
+                    tempLantai = noKamar.charAt(0);
+                    console.log("t"+tempLantai);
+                    var setDiv = '<div id="lantai'+tempLantai+'"> </div><hr>'
+                    $("#daftar_kamar").append(setDiv);
+                }
+                setHTML += '<input id="room-'+idKamar+'" onclick="setTotalHarga('+hargaKamar+','+idKamar+','+lamaMenginap+')" class="room-select" '+statusKamar+' type="checkbox" value="'+idKamar+'" name="room[]" /><label for="room-'+idKamar+'" class="room '+isOccupied+'">'+noKamar+'<br>'+tipeKamar+'<br>Room</label>';
+                $("#lantai"+tempLantai).append(setHTML);
             }
         }
     }

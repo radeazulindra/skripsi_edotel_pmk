@@ -4,11 +4,11 @@
     <div class="form-row">
         <div class="col-6">
             <label for="tgl_checkin">Tanggal Check-In *</label>
-            <input name="tgl_checkin" id="dateFrom" type="date" class="form-control" readonly="@if($walkInRegist == false) {{'readonly'}} @endif" required value="{{ isset($reservasi->tanggal_checkin) ? $reservasi->tanggal_checkin : ''}}">
+            <input name="tgl_checkin" id="dateFrom" type="date" class="form-control" @if(!$walkInRegist) {{'readonly'}} @endif required value="{{ isset($reservasi->tanggal_checkin) ? $reservasi->tanggal_checkin : ''}}">
         </div>
         <div class="col-6">
             <label for="tgl_checkout">Tanggal Check-Out *</label>
-            <input name="tgl_checkout" id="dateTo" type="date" class="form-control" readonly="@if($walkInRegist == false) {{'readonly'}} @endif" required value="{{ isset($reservasi->tanggal_checkout) ? $reservasi->tanggal_checkout : ''}}">
+            <input name="tgl_checkout" id="dateTo" type="date" class="form-control" @if(!$walkInRegist) {{'readonly'}} @endif required value="{{ isset($reservasi->tanggal_checkout) ? $reservasi->tanggal_checkout : ''}}">
         </div>
         <div class="col-12 my-3">
             @if (!$walkInRegist)
@@ -33,7 +33,7 @@
     </div>
     <div class="form-group">
         <label>Nama *</label>
-        <input name="nama" type="text" class="form-control" readonly="@if($walkInRegist == false) {{'readonly'}} @endif" required value="{{ isset($reservasi->nama) ? $reservasi->nama : ''}}">
+        <input name="nama" type="text" class="form-control" @if(!$walkInRegist) {{'readonly'}} @endif required value="{{ isset($reservasi->nama) ? $reservasi->nama : ''}}">
     </div>
     <div class="form-group">
         <label>Alamat *</label>
@@ -41,7 +41,7 @@
     </div>
     <div class="form-group">
         <label>Nomor Telepon *</label>
-        <input name="no_telp" type="number" class="form-control" readonly="@if($walkInRegist == false) {{'readonly'}} @endif" required value="{{ isset($reservasi->no_telp) ? $reservasi->no_telp : ''}}">
+        <input name="no_telp" type="number" class="form-control" @if(!$walkInRegist) {{'readonly'}} @endif required value="{{ isset($reservasi->no_telp) ? $reservasi->no_telp : ''}}">
     </div>
     <div class="form-group">
         <label>Catatan</label>

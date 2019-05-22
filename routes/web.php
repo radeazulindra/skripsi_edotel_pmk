@@ -31,10 +31,14 @@ Route::post('storeCheckIn',
     ['as' => 'storeCheckIn', 'uses' => 'ReservasiController@storeCheckIn']);
 
 Route::resource('guestin', 'GuestInController');
-Route::get('destroyTagihan/{id}', [
-    'as' => 'destroyTagihan', 'uses' => 'GuestInController@destroyTagihan']);
-Route::get('checkOut/{id}/{tagihan}', [
-    'as' => 'checkOut', 'uses' => 'GuestInController@checkOut']);
+Route::post('storetagihan', 
+    ['as' => 'storetagihan', 'uses' => 'GuestInController@storeTagihan']);
+Route::get('destroytagihan/{id}', [
+    'as' => 'destroytagihan', 'uses' => 'GuestInController@destroyTagihan']);
+Route::get('checkout/{id}/{tagihan}', [
+    'as' => 'checkout', 'uses' => 'GuestInController@checkOut']);
+Route::get('printbill/{id}', [
+    'as' => 'printbill', 'uses' => 'GuestInController@printBill']);
 
 Route::resource('carikamar', 'CariKamarController');
 // route manajemen data
@@ -52,5 +56,5 @@ Route::get('ajaxreservasi',
     ['as' => 'ajaxreservasi', 'uses' => 'ReservasiController@ajaxReservasi']
 );
 Route::get('ajaxtamu',
-    ['as' => 'ajaxtamu', 'uses' => 'ReservasiController@ajaxTamuHotel']
+    ['as' => 'ajaxtamu', 'uses' => 'GuestInController@ajaxTamuHotel']
 );

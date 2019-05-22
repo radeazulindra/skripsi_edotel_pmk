@@ -74,8 +74,8 @@
                                 <td>
                                     {{$item->nama_tagihan}}
                                     @if (stripos($item->nama_tagihan,'kamar') === false)
-                                        <a href="{{ route('destroyTagihan', ['id'=>$item->id]) }}">
-                                            <button {{ $tamu->status === 'Check-In' ? '' : 'Disabled' }} class="btn btn-danger btn-sm float-right">Hapus Tagihan</button>
+                                        <a href="{{ route('destroytagihan', ['id'=>$item->id]) }}">
+                                            <button style="display: {{ $tamu->status === 'Check-In' ? '' : 'none' }}" class="btn btn-danger btn-sm float-right">Hapus Tagihan</button>
                                         </a>
                                     @endif
                                 </td>
@@ -100,35 +100,35 @@
                         </tr>
                     </tfoot>
                 </table>
-                <div class="mt-4">
+                <div class="mt-4" style="display: {{ $tamu->status === 'Check-In' ? '' : 'none' }}">
                     <h4 class="mb-2">Tambah Tagihan</h4>
-                    <form action="{{ route('guestin.store') }}" method="POST">
+                    <form action="{{ route('storetagihan') }}" method="POST">
                         {{ csrf_field() }}
                         <input type="text" name="id_tamu" value="{{$tamu->id}}" hidden>
                         
-                        <select class="form-control" name="id_kamar" required {{$tamu->status === 'Check-In' ? '' : 'Disabled' }}>
+                        <select class="form-control" name="id_kamar" required {{$tamu->status === 'Check-In' ? '' : 'disabled' }}>
                             <option></option>
                             @foreach ($tamu->tagihan_tamu as $item)
                                 @if (stripos($item->nama_tagihan,'kamar') !== false)
-                                    <option value="{{$item->kamar->id}}">{{$item->kamar->no_kamar}}</option>
+                                    <option value="{{$item->kamar->id}}">Kamar {{$item->kamar->no_kamar}}</option>
                                 @endif
                             @endforeach                        
                         </select>
                         
                         <div class="form-group">
-                            <input name="nama_tagihan" type="text" class="form-control" placeholder="Nama Tagihan" required {{$tamu->status === 'Check-In' ? '' : 'Disabled' }}>
-                            <input name="besaran" type="number" class="form-control" placeholder="Besaran" required {{$tamu->status === 'Check-In' ? '' : 'Disabled' }}>
+                            <input name="nama_tagihan" type="text" class="form-control" placeholder="Nama Tagihan" required {{$tamu->status === 'Check-In' ? '' : 'disabled' }}>
+                            <input name="besaran" type="number" class="form-control" placeholder="Besaran" required {{$tamu->status === 'Check-In' ? '' : 'disabled' }}>
                         </div>
                         
                         <label class="radio-inline m-1">
-                            <input type="radio" name="jenis_tagihan" value="+" required {{$tamu->status === 'Check-In' ? '' : 'Disabled' }}> Tagihan Tambahan
+                            <input type="radio" name="jenis_tagihan" value="+" required {{$tamu->status === 'Check-In' ? '' : 'disabled' }}> Tagihan Tambahan
                         </label>
                         <label class="radio-inline m-1">
-                            <input type="radio" name="jenis_tagihan" value="-" {{$tamu->status === 'Check-In' ? '' : 'Disabled' }}> Potongan Harga
+                            <input type="radio" name="jenis_tagihan" value="-" {{$tamu->status === 'Check-In' ? '' : 'disabled' }}> Potongan Harga
                         </label>
 
                         <div class="float-right">
-                            <button {{$tamu->status === 'Check-In' ? '' : 'Disabled' }} class="btn btn-info">Tambah Tagihan</button>
+                            <button {{$tamu->status === 'Check-In' ? '' : 'disabled' }} class="btn btn-success">Tambah Tagihan</button>
                         </div>
                     </form>
                     <br><br>
@@ -136,11 +136,11 @@
             </div>
             <div class="col-12 mt-5">
                 <div class="float-right">
-                    <a href="{{ route('checkOut', ['id'=>$tamu->id,'tagihan'=>$tagihan]) }}">
-                        <button class="btn btn-danger" {{$tamu->status === 'Check-In' ? '' : 'Disabled' }}>Check-Out</button>
+                    <a href="{{ route('checkout', ['id'=>$tamu->id,'tagihan'=>$tagihan]) }}">
+                        <button class="btn btn-danger" style="display: {{ $tamu->status === 'Check-In' ? '' : 'none' }}">Check-Out</button>
                     </a>
-                    <a href="#">
-                        <button class="btn btn-success" {{$tamu->status === 'Check-Out' ? '' : 'Disabled' }}>Cetak Nota</button>
+                    <a href="{{ route('printbill', ['id'=>$tamu->id]) }}">
+                        <button class="btn btn-primary" style="display: {{ $tamu->status === 'Check-Out' ? '' : 'none' }}">Cetak Bill</button>
                     </a>
                 </div>
             </div>

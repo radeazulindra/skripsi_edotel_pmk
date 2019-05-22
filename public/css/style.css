@@ -1,0 +1,20 @@
+.room {
+    float: left;
+    display: block;
+    margin: 5px;
+    background: lightgreen;
+    width: 75px;
+    height: 75px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+    line-height: 25px;
+}
+
+.room-select {
+    display: none;
+}
+
+label.occupied {
+    background: lightcoral;
+}
