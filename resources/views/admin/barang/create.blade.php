@@ -8,15 +8,15 @@
     @endif
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Form Tambah Kamar</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Form Tambah Barang</h6>
         </div>
         <div class="card-body">
-            <a href="{{ route('kamar.index') }}">Kembali</a>
+            <a href="{{ route('barang.index') }}">Kembali</a>
             <br><br>
-            <form action="{{ route('kamar.store') }}" method="POST">
+            <form action="{{ route('barang.store') }}" method="POST">
                 {{ csrf_field() }}
 
-                @include ('admin.kamar.form', ['formMode' => 'create'])
+                @include ('admin.barang.form', ['formMode' => 'create'])
 
             </form>                        
         </div>

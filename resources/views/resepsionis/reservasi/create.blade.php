@@ -118,6 +118,25 @@
         }
     });
 
+    // GET LANTAI
+    // var listLantai = [];
+    // $.get( "{{ route('ajaxkamar') }}", function(respond){
+    //     var data = JSON.parse(respond);
+    //     lt = 0;
+    //     for (let i = 0; i <= data.length;) {
+    //         var lantaiHotel = [];
+    //         var curLt = data[i]['no_kamar'].charAt(0);
+    //         if (lt === curLt) {
+    //             console.log(data[i]['no_kamar']);
+    //             i++;
+    //         } else {
+    //             lt++;
+    //             console.log('setLt'+lt);
+    //             window.listLantai.push(lt);
+    //         }
+    //     }
+    // });
+
     // FIND KAMAR TERSEDIA
     var dtFrom; //INPUT DATE FROM
     var dtTo; // INPUT DATE TO
@@ -126,10 +145,11 @@
         var dateTo = document.getElementById("dateTo").value;
         window.dtFrom = new Date(dateFrom);
         window.dtTo = new Date(dateTo);
-        var tempLantai = -1;
+
+        // var tempLantai = Math.max(window.listLantai);
         if (dateFrom != '' && dateTo != '' && dateTo > dateFrom) {
             $("#daftar_kamar").empty();
-            for (let i = window.listKamar.length-1; i >= 0 ; i--) {
+            for (let i = 0; i < window.listKamar.length ; i++) {
                 var setHTML = '';
                 var kamar = window.listKamar[i];
                 var idKamar = kamar[0];
@@ -146,20 +166,24 @@
                     statusKamar = "disabled";
                 }
                 var lamaMenginap = parseInt((window.dtTo-window.dtFrom)/(24*3600*1000)) ;
-                if(tempLantai == -1){
-                    tempLantai = noKamar.charAt(0);
-                    console.log("init"+tempLantai);
-                    var setDiv = '<div id="lantai'+tempLantai+'"> </div><hr>'
-                    $("#daftar_kamar").append(setDiv);
-                }
-                if(noKamar.charAt(0) != tempLantai){
-                    tempLantai = noKamar.charAt(0);
-                    console.log("t"+tempLantai);
-                    var setDiv = '<div id="lantai'+tempLantai+'"> </div><hr>'
-                    $("#daftar_kamar").append(setDiv);
-                }
+
+                // if(tempLantai == -1){
+                //     tempLantai = noKamar.charAt(0);
+                //     console.log("lantai "+tempLantai);
+                //     var setDiv = '<div id="lantai'+tempLantai+'"> </div><hr>'
+                //     $("#daftar_kamar").append(setDiv);
+                // }
+                
+                // if(noKamar.charAt(0) != tempLantai){
+                //     tempLantai = noKamar.charAt(0);
+                //     console.log("lantai "+tempLantai);
+                //     var setDiv = '<div id="lantai'+tempLantai+'"> </div><hr>'
+                //     $("#daftar_kamar").append(setDiv);
+                // }
+
                 setHTML += '<input id="room-'+idKamar+'" onclick="setTotalHarga('+hargaKamar+','+idKamar+','+lamaMenginap+')" class="room-select" '+statusKamar+' type="checkbox" value="'+idKamar+'" name="room[]" /><label for="room-'+idKamar+'" class="room '+isOccupied+'">'+noKamar+'<br>'+tipeKamar+'<br>Room</label>';
-                $("#lantai"+tempLantai).append(setHTML);
+                // $("#lantai"+tempLantai).append(setHTML);
+                $("#daftar_kamar").append(setHTML);
             }
         }
     }

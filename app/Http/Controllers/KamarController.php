@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Redirect;
+
 use App\Kamar;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KamarController extends Controller
 {
@@ -16,7 +19,7 @@ class KamarController extends Controller
     public function index()
     {
         $title = 'Manajemen Kamar';
-        $kamar = Kamar::all();
+        $kamar = Kamar::orderBy('no_kamar', 'asc')->get();
         return view('admin.kamar.index', compact('title','kamar'));
     }
 
@@ -39,9 +42,17 @@ class KamarController extends Controller
      */
     public function store(Request $request)
     {
-        $requestData = $request->all();
-        Kamar::create($requestData);
-        return redirect()->route('kamar.index');
+        $no_kamar_input = $request->input('no_kamar');
+
+        $data = $request->all();
+        $count = DB::table('kamar')->where('no_kamar', $no_kamar_input)->count();
+
+        if ($count > 0) {
+            return redirect()->route('kamar.create')->with('message','Nomor kamar telah digunakan!');
+        } else {
+            Kamar::create($data);
+            return redirect()->route('kamar.index');
+        }
     }
 
     /**
@@ -91,6 +102,7 @@ class KamarController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $kamar = Kamar::where('id', $id)->delete();
+        return Redirect::back()->with('message','Kamar berhasil dihapus!');
     }
 }

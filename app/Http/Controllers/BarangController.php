@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Redirect;
+
+use App\Barang;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BarangController extends Controller
 {
@@ -14,8 +19,8 @@ class BarangController extends Controller
     public function index()
     {
         $title = 'Manajemen Barang';
-        
-        return view('admin.barang.index', compact('title'));
+        $barang = Barang::orderBy('jenis_barang', 'asc')->get();
+        return view('admin.barang.index', compact('title','barang'));
     }
 
     /**
@@ -25,7 +30,8 @@ class BarangController extends Controller
      */
     public function create()
     {
-        //
+        $title = 'Tambah Barang';
+        return view('admin.barang.create', compact('title'));
     }
 
     /**
@@ -36,7 +42,17 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $nama_barang_input = $request->input('nama_barang');
+
+        $data = $request->all();
+        $count = DB::table('barang')->where('nama_barang', $nama_barang_input)->count();
+
+        if ($count > 0) {
+            return redirect()->route('barang.create')->with('message','Nama barang telah tersedia!');
+        } else {
+            Kamar::create($data);
+            return redirect()->route('kamar.index');
+        }
     }
 
     /**
@@ -58,7 +74,9 @@ class BarangController extends Controller
      */
     public function edit($id)
     {
-        //
+        $title = 'Edit Barang';
+        $barang = Barang::findOrFail($id);
+        return view('admin.barang.edit', compact('title','barang'));
     }
 
     /**
@@ -70,7 +88,10 @@ class BarangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $barang = Barang::findOrFail($id);
+        $requestData = $request->all();
+        $barang->update($requestData);
+        return redirect()->route('barang.index');
     }
 
     /**
@@ -81,6 +102,7 @@ class BarangController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $barang = Barang::where('id', $id)->delete();
+        return Redirect::back()->with('message','Barang berhasil dihapus!');
     }
 }
