@@ -53,7 +53,7 @@ class GuestInController extends Controller
         $tagihan->besaran = $besaran;
         $tagihan->save();
 
-        return redirect()->back()->with('alert', 'Tagihan telah ditambahkan!');
+        return redirect()->back()->with('message', 'Tagihan telah ditambahkan!');
     }
 
     public function destroyTagihan($id)

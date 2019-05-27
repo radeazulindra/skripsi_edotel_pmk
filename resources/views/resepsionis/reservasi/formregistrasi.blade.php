@@ -75,3 +75,19 @@
         <a href=""><input type="submit" class="btn btn-success" value="Check-In"></a>
     </div>
 </form>
+<script>
+    // GET TODAY DATE
+    if ($('#dateFrom').val() === ''){
+        $(function() {
+            var now = new Date();
+            var month = (now.getMonth() + 1);               
+            var day = now.getDate();
+            if (month < 10) 
+                month = "0" + month;
+            if (day < 10) 
+                day = "0" + day;
+            var today = now.getFullYear() + '-' + month + '-' + day;
+            $('#dateFrom').val(today);
+        });
+    }
+</script>

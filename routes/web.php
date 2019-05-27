@@ -58,3 +58,6 @@ Route::get('ajaxreservasi',
 Route::get('ajaxtamu',
     ['as' => 'ajaxtamu', 'uses' => 'GuestInController@ajaxTamuHotel']
 );
+Route::get('ajaxbarang',
+    ['as' => 'ajaxbarang', 'uses' => 'BarangController@ajaxBarang']
+);

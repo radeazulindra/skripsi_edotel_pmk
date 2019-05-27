@@ -105,4 +105,9 @@ class BarangController extends Controller
         $barang = Barang::where('id', $id)->delete();
         return Redirect::back()->with('message','Barang berhasil dihapus!');
     }
+
+    public function ajaxBarang(){
+        $barang = Barang::all();
+        echo json_encode($barang);
+    }
 }

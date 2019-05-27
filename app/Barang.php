@@ -11,10 +11,11 @@ class Barang extends Model
         'nama_barang','jenis_barang','jumlah'
     ];
 
-    // public function reservasi_kamar()
-    // {
-    //     return $this->hasMany('App\ReservasiKamar','id_kamar');
-    // }
+    public function barang_keluar()
+    {
+        return $this->hasMany('App\BarangKeluar','id_barang');
+    }
+    
     // public function tagihan_tamu()
     // {
     //     return $this->hasMany('App\TagihanTamu','id_kamar');
