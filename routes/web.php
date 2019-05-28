@@ -44,16 +44,21 @@ Route::get('printbill/{id}', [
 Route::resource('carikamar', 'CariKamarController');
 
 // route manajemen data
-Route::resource('pelanggan', 'PelangganController');
 Route::resource('kamar', 'KamarController');
+
 Route::resource('barang', 'BarangController');
+
+// Route::resource('pelanggan', 'PelangganController');
 
 // route store keeper
 Route::resource('barangmasuk', 'BarangMasukController');
+
 Route::resource('barangkeluar', 'BarangKeluarController');
 
 // route manajer
 Route::resource('laporan', 'LaporanController');
+Route::get('printlappenjualan', [
+    'as' => 'printlappenjualan', 'uses' => 'LaporanController@printLpPenjualan']);
 
 // route ajax
 Route::get('ajaxkamar',

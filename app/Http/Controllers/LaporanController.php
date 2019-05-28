@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
+
+use App\TamuHotel;
+
 use Illuminate\Http\Request;
 
 class LaporanController extends Controller
@@ -16,6 +20,21 @@ class LaporanController extends Controller
         $title='Laporan';
         return view('manajer.laporan.index', compact('title'));
     }
+
+    public function printLpPenjualan(){
+        $title = 'Laporan Penjualan Hotel';
+	    $tamu = TamuHotel::all();
+ 
+	    $pdf = PDF::loadview('manajer.laporan.laptamu',['title'=>$title,'tamu'=>$tamu]);
+        return $pdf->stream();
+    }
+
+    // public function printLpBarang($id){
+	//     // $tamu = TamuHotel::findOrFail($id);
+ 
+	//     $pdf = PDF::loadview('resepsionis.guestin.bill',['tamu'=>$tamu]);
+    //     return $pdf->stream();
+    // }
 
     /**
      * Show the form for creating a new resource.
