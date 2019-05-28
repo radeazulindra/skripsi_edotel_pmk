@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Barang;
+use App\BarangMasuk;
+
 use Illuminate\Http\Request;
 
 class BarangMasukController extends Controller
@@ -13,8 +16,9 @@ class BarangMasukController extends Controller
      */
     public function index()
     {
-        $title='Barang Masuk';
-        return view('storekeeper.barangmasuk.index', compact('title'));
+        $title='Pencatatan Barang Masuk';
+        $bMasuk = BarangMasuk::orderBy('tanggal_masuk','desc')->get();
+        return view('storekeeper.barangmasuk.index', compact('title','bMasuk'));
     }
 
     /**
@@ -24,8 +28,8 @@ class BarangMasukController extends Controller
      */
     public function create()
     {
-        $title='Tambah Barang Masuk';
-        return view('storekeeper.barangmasuk.form', compact('title'));
+        $title='Tambah Catatan Barang Masuk';
+        return view('storekeeper.barangmasuk.create', compact('title'));
     }
 
     /**
@@ -36,7 +40,33 @@ class BarangMasukController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'gambar_nota' => 'required|image|mimes:jpeg,png,jpg',
+        ]);
+
+        $file = $request->file('gambar_nota');
+        $fileName = time().'_'.$namaBarang.'.'.$file->getClientOriginalExtension();
+        $destinationPath = public_path('/storage');
+        $file->move($destinationPath, $fileName);
+
+        $namaBarang = $request->input('nama_barang');
+        $barang = Barang::where('nama_barang', $namaBarang)->first();
+
+        $data = array(
+            'id_barang' => $barang->id,
+            'tanggal_masuk' => $request->input('tanggal_masuk'),
+            'jumlah' => $request->input('jumlah'),
+            'gambar_nota' => $fileName
+        );
+
+        if (BarangMasuk::create($data)) {
+            $barang->jumlah += $request->input('jumlah');
+            $barang->save();
+
+            return redirect()->route('barangmasuk.index')->with('message','Berhasil menambahkan catatan barang masuk!');
+        } else {
+            return redirect()->route('barangmasuk.create')->with('message','Gagal menambahkan catatan barang masuk!');
+        }
     }
 
     /**
@@ -58,8 +88,9 @@ class BarangMasukController extends Controller
      */
     public function edit($id)
     {
-        $title='Edit Barang Masuk';
-        return view('storekeeper.barangmasuk.form', compact('title','id'));
+        $title='Edit Catatan Barang Masuk';
+        $bMasuk = BarangMasuk::findOrFail($id);
+        return view('storekeeper.barangmasuk.edit', compact('title','bMasuk'));
     }
 
     /**
@@ -70,8 +101,39 @@ class BarangMasukController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {   
+        $namaBarang = $request->input('nama_barang');
+
+        $barang = Barang::where('nama_barang', $namaBarang)->first();
+        $bMasuk = BarangMasuk::where('id', $id)->first();
+
+        $barang->jumlah -= $bMasuk->jumlah; // mengembalikan jumlah menjadi sebelum memasukkan barang
+
+        if ($request->file('gambar_nota')) {
+            $file = $request->file('gambar_nota');
+            $fileName = time().'_'.$namaBarang.'.'.$file->getClientOriginalExtension();
+            $destinationPath = public_path('/storage');
+            $file->move($destinationPath, $fileName);
+
+            $bMasuk->gambar_nota = $fileName;
+        }
+
+        $data = array(
+            'id_barang' => $barang->id,
+            'tanggal_masuk' => $request->input('tanggal_masuk'),
+            'jumlah' => $request->input('jumlah'),
+        );
+
+        if ($bMasuk->update($data)) {
+            $bMasuk->save(); // mengupdate file gambar nota
+
+            $barang->jumlah += $request->input('jumlah');
+            $barang->save(); // mengupdate jumlah setelah memasukkan barang
+
+            return redirect()->route('barangmasuk.index')->with('message','Berhasil memperbarui catatan barang masuk!');
+        } else {
+            return redirect()->route('barangmasuk.edit', ['id' => $id])->with('message','Gagal memperbarui catatan barang masuk!');
+        }
     }
 
     /**

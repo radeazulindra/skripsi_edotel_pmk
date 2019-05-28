@@ -16,8 +16,8 @@ class Barang extends Model
         return $this->hasMany('App\BarangKeluar','id_barang');
     }
     
-    // public function tagihan_tamu()
-    // {
-    //     return $this->hasMany('App\TagihanTamu','id_kamar');
-    // }
+    public function barang_masuk()
+    {
+        return $this->hasMany('App\BarangMasuk','id_barang');
+    }
 }

@@ -38,7 +38,7 @@
                                 <td>Rp. {{ $item->harga }}</td>
                                 <td>{{ $item->status }}</td>
                                 <td>
-                                    <a href="{{ route('kamar.edit', ['id'=>$item->id]) }}"><button class="btn btn-primary btn-sm">Perbarui</button></a>
+                                    <a href="{{ route('kamar.edit', ['id'=>$item->id]) }}"><button class="btn btn-warning btn-sm">Edit</button></a>
     
                                     <form method="POST" action="{{ route('kamar.destroy', ['id'=>$item->id]) }}" accept-charset="UTF-8" style="display:inline">
                                         {{ method_field('DELETE') }}

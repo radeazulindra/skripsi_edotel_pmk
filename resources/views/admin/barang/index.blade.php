@@ -36,7 +36,7 @@
                                 <td>{{ $item->jenis_barang }}</td>
                                 <td>{{ $item->jumlah }}</td>
                                 <td>
-                                    <a href="{{ route('barang.edit', ['id'=>$item->id]) }}"><button class="btn btn-warning btn-sm">Perbarui</button></a>
+                                    <a href="{{ route('barang.edit', ['id'=>$item->id]) }}"><button class="btn btn-warning btn-sm">Edit</button></a>
 
                                     <form method="POST" action="{{ route('barang.destroy', ['id'=>$item->id]) }}" accept-charset="UTF-8" style="display:inline">
                                         {{ method_field('DELETE') }}

@@ -23,7 +23,6 @@
     <label>Tujuan *</label>
     <input name="tujuan" type="text" class="form-control" required value="{{ isset($bKeluar->tujuan) ? $bKeluar->tujuan : ''}}">
 </div>
-
 <hr>
 <div class="float-right">
     <input class="btn btn-success" type="submit" value="{{ $formMode === 'edit' ? 'Perbarui' : 'Tambah' }}">

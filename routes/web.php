@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
+// route dashboard
 Route::get('/home', 'HomeController@index')->name('home');
 
 // route resepsionis
@@ -41,14 +42,20 @@ Route::get('printbill/{id}', [
     'as' => 'printbill', 'uses' => 'GuestInController@printBill']);
 
 Route::resource('carikamar', 'CariKamarController');
+
 // route manajemen data
 Route::resource('pelanggan', 'PelangganController');
 Route::resource('kamar', 'KamarController');
 Route::resource('barang', 'BarangController');
+
 // route store keeper
 Route::resource('barangmasuk', 'BarangMasukController');
 Route::resource('barangkeluar', 'BarangKeluarController');
 
+// route manajer
+Route::resource('laporan', 'LaporanController');
+
+// route ajax
 Route::get('ajaxkamar',
     ['as' => 'ajaxkamar', 'uses' => 'ReservasiController@ajaxKamar']
 );

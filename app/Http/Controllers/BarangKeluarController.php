@@ -105,8 +105,7 @@ class BarangKeluarController extends Controller
         $oldJumlah = $bKeluar->jumlah;
         $newJumlah = $request->input('jumlah');
 
-        $barang->jumlah += $oldJumlah;
-        $barang->save(); // mengembalikan jumlah sebelum mengeluarkan barang
+        $barang->jumlah += $oldJumlah; // mengembalikan jumlah sebelum mengeluarkan barang
 
         if ($newJumlah > $barang->jumlah) {
             return redirect()->route('barangkeluar.edit', ['id' => $id])->with('message','Jumlah barang yang ingin dikeluarkan lebih besar dari stok yang ada!');

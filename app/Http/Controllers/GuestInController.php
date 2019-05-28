@@ -21,9 +21,9 @@ class GuestInController extends Controller
     public function index()
     {
         $title='Guest List';
-        $tamu = TamuHotel::orderBy('tanggal_checkin', 'asc')->orderBy('tanggal_checkout', 'asc')->get();
-
-        return view('resepsionis.guestin.index', compact('title','tamu'));
+        $tamuCheckIn = TamuHotel::where('status','Check-In')->orderBy('tanggal_checkin', 'asc')->orderBy('tanggal_checkout', 'asc')->get();
+        $tamuCheckOut = TamuHotel::where('status','Check-Out')->orderBy('tanggal_checkin', 'asc')->orderBy('tanggal_checkout', 'asc')->get();
+        return view('resepsionis.guestin.index', compact('title','tamuCheckIn','tamuCheckOut'));
     }
 
     /**
