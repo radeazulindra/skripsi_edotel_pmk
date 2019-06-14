@@ -51,116 +51,122 @@
 </head>
 <body id="page-top">
     <!-- Page Wrapper -->
-    <div id="wrapper">
+    <div id="wrapper" style="min-height:100vh">
 
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-    
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
-                <div class="sidebar-brand-icon">
-                    <i class="fas fa-hotel"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">Edotel Pamekasan</div>
-            </a>
+        @php
+            if ($title!='Login' && $title!='Register') {
+        @endphp
+            <!-- Sidebar -->
+            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
         
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-        
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('home') }}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
+                <!-- Sidebar - Brand -->
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+                    <div class="sidebar-brand-icon">
+                        <i class="fas fa-hotel"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3">Edotel Pamekasan</div>
                 </a>
-            </li>
-        
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Reservasi -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('reservasi.index') }}">
-                    <i class="fas fa-fw fa-bell"></i>
-                    <span>Reservasi</span>
-                </a>
-            </li>
-
-            <!-- Nav Item - Guest In -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('guestin.index') }}">
-                    <i class="fas fa-fw fa-hotel"></i>
-                    <span>Guest List</span>
-                </a>
-            </li>
-
-            <!-- Nav Item - Cari Kamar -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('carikamar.index') }}">
-                    <i class="fas fa-fw fa-calendar"></i>
-                    <span>Cari Kamar</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Menej Pelanggan -->
-            {{-- <li class="nav-item">
-                <a class="nav-link" href="{{ route('pelanggan.index')}}">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>Manajemen Pelanggan</span>
-                </a>
-            </li> --}}
             
-            <!-- Nav Item - Menej Kamar -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('kamar.index')}}">
-                    <i class="fas fa-fw fa-bed"></i>
-                    <span>Manajemen Kamar</span>
-                </a>
-            </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider my-0">
+            
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('home') }}">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+            
+                <!-- Divider -->
+                <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Menej Barang -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('barang.index') }}">
-                    <i class="fas fa-fw fa-boxes"></i>
-                    <span>Manajemen Barang</span>
-                </a>
-            </li>
+                <!-- Nav Item - Reservasi -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('reservasi.index') }}">
+                        <i class="fas fa-fw fa-bell"></i>
+                        <span>Reservasi</span>
+                    </a>
+                </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
+                <!-- Nav Item - Guest In -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('guestin.index') }}">
+                        <i class="fas fa-fw fa-hotel"></i>
+                        <span>Guest List</span>
+                    </a>
+                </li>
 
-            <!-- Nav Item - Barang Masuk -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('barangmasuk.index') }}">
-                    <i class="fas fa-fw fa-sign-in-alt"></i>
-                    <span>Barang Masuk</span>
-                </a>
-            </li>
+                <!-- Nav Item - Cari Kamar -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('carikamar.index') }}">
+                        <i class="fas fa-fw fa-calendar"></i>
+                        <span>Cari Kamar</span>
+                    </a>
+                </li>
 
-            <!-- Nav Item - Barang Keluar -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('barangkeluar.index') }}">
-                    <i class="fas fa-fw fa-sign-out-alt"></i>
-                    <span>Barang Keluar</span>
-                </a>
-            </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider my-0">
 
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
+                <!-- Nav Item - Menej Pelanggan -->
+                {{-- <li class="nav-item">
+                    <a class="nav-link" href="{{ route('pelanggan.index')}}">
+                        <i class="fas fa-fw fa-users"></i>
+                        <span>Manajemen Pelanggan</span>
+                    </a>
+                </li> --}}
+                
+                <!-- Nav Item - Menej Kamar -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('kamar.index')}}">
+                        <i class="fas fa-fw fa-bed"></i>
+                        <span>Manajemen Kamar</span>
+                    </a>
+                </li>
 
-            <!-- Nav Item - Laporan -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('laporan.index') }}">
-                    <i class="fas fa-fw fa-clipboard"></i>
-                    <span>Laporan</span>
-                </a>
-            </li>
-    
-        </ul>
-        <!-- End of Sidebar -->
+                <!-- Nav Item - Menej Barang -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('barang.index') }}">
+                        <i class="fas fa-fw fa-boxes"></i>
+                        <span>Manajemen Barang</span>
+                    </a>
+                </li>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider my-0">
+
+                <!-- Nav Item - Barang Masuk -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('barangmasuk.index') }}">
+                        <i class="fas fa-fw fa-sign-in-alt"></i>
+                        <span>Barang Masuk</span>
+                    </a>
+                </li>
+
+                <!-- Nav Item - Barang Keluar -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('barangkeluar.index') }}">
+                        <i class="fas fa-fw fa-sign-out-alt"></i>
+                        <span>Barang Keluar</span>
+                    </a>
+                </li>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider my-0">
+
+                <!-- Nav Item - Laporan -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('laporan.index') }}">
+                        <i class="fas fa-fw fa-clipboard"></i>
+                        <span>Laporan</span>
+                    </a>
+                </li>
+        
+            </ul>
+            <!-- End of Sidebar -->
+        @php
+            }
+        @endphp
     
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -175,16 +181,20 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-            
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-            
-                        <div class="topbar-divider d-none d-sm-block"></div>
-            
-                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Logout
-                        </a>
-                    </ul>
+                    
+                    @php
+                        if ($title!='Login' && $title!='Register') {
+                    @endphp
+                        <!-- Topbar Navbar -->
+                        <ul class="navbar-nav ml-auto">
+                            <div class="topbar-divider d-none d-sm-block"></div>
+                            <a class="dropdown-item" href="{{ route('login') }}">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Logout
+                            </a>
+                        </ul>
+                    @php
+                        }
+                    @endphp
         
                 </nav>
                 <!-- End of Topbar -->

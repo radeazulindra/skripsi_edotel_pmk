@@ -105,4 +105,9 @@ class KamarController extends Controller
         $kamar = Kamar::where('id', $id)->delete();
         return Redirect::back()->with('message','Kamar berhasil dihapus!');
     }
+
+    public function ajaxKamar(){
+        $kamar = Kamar::all();
+        echo json_encode($kamar);
+    }
 }

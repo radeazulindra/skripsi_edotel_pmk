@@ -8,8 +8,7 @@
             <h6 class="m-0 font-weight-bold text-primary">{{$title}}</h6>
         </div>
         <div class="card-body">
-                <h4>Tamu Sedang Check-In</h4>
-
+            <h4>Tamu Sedang Check-In</h4>
             <div class="table">
                 <table class="ui blue celled table tableGuestIn" cellspacing="0">
                     <thead>
@@ -50,9 +49,10 @@
                     </tbody>
                 </table>
             </div>
+            
             <hr>
-            <h4>Daftar Tamu Sudah Check-Out</h4>
 
+            <h4>Tamu Sudah Check-Out</h4>
             <div class="table">
                 <table class="ui blue celled table tableGuestIn" cellspacing="0">
                     <thead>

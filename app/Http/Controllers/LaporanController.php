@@ -21,12 +21,38 @@ class LaporanController extends Controller
         return view('manajer.laporan.index', compact('title'));
     }
 
-    public function printLpPenjualan(){
-        $title = 'Laporan Penjualan Hotel';
-	    $tamu = TamuHotel::all();
+    public function printLpTransaksi(Request $request){
+        $monthYear = $request->input('monthyear');
+        $data = explode('-',$monthYear);
+        // dd($monthyear);
+        // $tamu = TamuHotel::all();
+        $bulan = array (1 =>   'Januari',
+				'Februari',
+				'Maret',
+				'April',
+				'Mei',
+				'Juni',
+				'Juli',
+				'Agustus',
+				'September',
+				'Oktober',
+				'November',
+				'Desember'
+			);
+        $monthName = $bulan[ (int)$data[1] ];
+        $yearName = $data[0];
+
+        $todayDate = date("d")." ".$bulan[ (int)date("m")]." ".date("Y");
+
+        $title = 'Laporan Transaksi Edotel Pamekasan - '.$monthName.' '.$yearName;
+        
+        $tamu = TamuHotel::where('status','Check-Out')->whereMonth('tanggal_checkout',$data[1])->whereYear('tanggal_checkout',$data[0])->orderBy('tanggal_checkin', 'asc')->get();
  
-	    $pdf = PDF::loadview('manajer.laporan.laptamu',['title'=>$title,'tamu'=>$tamu]);
+        $pdf = PDF::loadview('manajer.laporan.transtamu',['title'=>$title,'tamu'=>$tamu,'todayDate'=>$todayDate,'month'=>$monthName,'year'=>$yearName]);
+        $pdf->setPaper('A4', 'landscape');
         return $pdf->stream();
+
+        // return view('manajer.laporan.transtamu',['title'=>$title,'tamu'=>$tamu,'todayDate'=>$todayDate,'month'=>$monthName,'year'=>$yearName]);
     }
 
     // public function printLpBarang($id){

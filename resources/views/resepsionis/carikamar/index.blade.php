@@ -81,7 +81,7 @@
         var tempLantai = -1;
         if (dateFrom != '' && dateTo != '' && dateTo > dateFrom) {
             $("#daftar_kamar").empty();
-            for (let i = window.listKamar.length-1; i >= 0 ; i--) {
+            for (let i = 0; i < window.listKamar.length-1 ; i++) {
                 var setHTML = '';
                 var kamar = window.listKamar[i];
                 var idKamar = kamar[0];
@@ -98,20 +98,21 @@
                     statusKamar = "disabled";
                 }
                 var lamaMenginap = parseInt((window.dtTo-window.dtFrom)/(24*3600*1000)) ;
-                if(tempLantai == -1){
-                    tempLantai = noKamar.charAt(0);
-                    console.log("init"+tempLantai);
-                    var setDiv = '<div id="lantai'+tempLantai+'"> </div><hr>'
-                    $("#daftar_kamar").append(setDiv);
-                }
-                if(noKamar.charAt(0) != tempLantai){
-                    tempLantai = noKamar.charAt(0);
-                    console.log("t"+tempLantai);
-                    var setDiv = '<div id="lantai'+tempLantai+'"> </div><hr>'
-                    $("#daftar_kamar").append(setDiv);
-                }
+                // if(tempLantai == -1){
+                //     tempLantai = noKamar.charAt(0);
+                //     console.log("init"+tempLantai);
+                //     var setDiv = '<div id="lantai'+tempLantai+'"> </div><hr>'
+                //     $("#daftar_kamar").append(setDiv);
+                // }
+                // if(noKamar.charAt(0) != tempLantai){
+                //     tempLantai = noKamar.charAt(0);
+                //     console.log("t"+tempLantai);
+                //     var setDiv = '<div id="lantai'+tempLantai+'"> </div><hr>'
+                //     $("#daftar_kamar").append(setDiv);
+                // }
                 setHTML += '<input id="room-'+idKamar+'" onclick="setTotalHarga('+hargaKamar+','+idKamar+','+lamaMenginap+')" class="room-select" '+statusKamar+' type="checkbox" value="'+idKamar+'" name="room[]" /><label for="room-'+idKamar+'" class="room '+isOccupied+'">'+noKamar+'<br>'+tipeKamar+'<br>Room</label>';
-                $("#lantai"+tempLantai).append(setHTML);
+                // $("#lantai"+tempLantai).append(setHTML);
+                $("#daftar_kamar").append(setHTML);
             }
             $("#resv").show();
         }

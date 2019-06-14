@@ -23,8 +23,12 @@ class ReservasiController extends Controller
     public function index()
     {
         $title = 'Reservasi';
-        $reservasi = Reservasi::orderBy('tanggal_checkin', 'asc')->get();
-        return view('resepsionis.reservasi.index', compact('title','reservasi'));
+        $sudahKonfirmasi = Reservasi::where('status','Sudah Konfirmasi')->orderBy('tanggal_checkin', 'asc')->orderBy('tanggal_checkout', 'asc')->get();
+        $belumKonfirmasi = Reservasi::where('status','Belum Konfirmasi')->orderBy('tanggal_checkin', 'asc')->orderBy('tanggal_checkout', 'asc')->get();
+        $sudahCheckIn = Reservasi::where('status','Sudah Check-In')->orderBy('tanggal_checkin', 'asc')->orderBy('tanggal_checkout', 'asc')->get();
+        $batalReservasi = Reservasi::where('status','Batal Reservasi')->orderBy('tanggal_checkin', 'asc')->orderBy('tanggal_checkout', 'asc')->get();
+
+        return view('resepsionis.reservasi.index', compact('title','sudahKonfirmasi','belumKonfirmasi','sudahCheckIn','batalReservasi'));
     }
 
     /**
@@ -145,11 +149,6 @@ class ReservasiController extends Controller
     //     $title = 'Form Registrasi';
     //     return view('resepsionis.reservasi.formregistrasi', compact('title'));
     // }
-
-    public function ajaxKamar(){
-        $kamar = Kamar::all();
-        echo json_encode($kamar);
-    }
 
     public function ajaxReservasi(){
         $reservasi = DB::table('reservasi_kamar')

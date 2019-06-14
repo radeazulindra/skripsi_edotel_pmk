@@ -139,7 +139,7 @@
                     <a href="{{ route('checkout', ['id'=>$tamu->id,'tagihan'=>$tagihan]) }}">
                         <button class="btn btn-danger" style="display: {{ $tamu->status === 'Check-In' ? '' : 'none' }}">Check-Out</button>
                     </a>
-                    <a href="{{ route('printbill', ['id'=>$tamu->id]) }}">
+                    <a href="{{ route('printbill', ['id'=>$tamu->id]) }}" target="_blank">
                         <button class="btn btn-primary" style="display: {{ $tamu->status === 'Check-Out' ? '' : 'none' }}">Cetak Bill</button>
                     </a>
                 </div>

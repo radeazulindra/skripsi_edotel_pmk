@@ -12,7 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return redirect('home');
 });
 
 Auth::routes();
@@ -57,12 +58,14 @@ Route::resource('barangkeluar', 'BarangKeluarController');
 
 // route manajer
 Route::resource('laporan', 'LaporanController');
-Route::get('printlappenjualan', [
-    'as' => 'printlappenjualan', 'uses' => 'LaporanController@printLpPenjualan']);
+// Route::get('printlaptrans', [
+//     'as' => 'printlaptrans', 'uses' => 'LaporanController@printLpTransaksi']);
+Route::post('printtranstamu', [
+        'as' => 'printtranstamu', 'uses' => 'LaporanController@printLpTransaksi']);
 
 // route ajax
 Route::get('ajaxkamar',
-    ['as' => 'ajaxkamar', 'uses' => 'ReservasiController@ajaxKamar']
+    ['as' => 'ajaxkamar', 'uses' => 'KamarController@ajaxKamar']
 );
 Route::get('ajaxreservasi',
     ['as' => 'ajaxreservasi', 'uses' => 'ReservasiController@ajaxReservasi']

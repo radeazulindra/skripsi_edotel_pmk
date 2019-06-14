@@ -69,9 +69,9 @@ class GuestInController extends Controller
 
     public function printBill($id){
 	    $tamu = TamuHotel::findOrFail($id);
- 
-	    $pdf = PDF::loadview('resepsionis.guestin.bill',['tamu'=>$tamu]);
-        return $pdf->stream();
+        $pdf = PDF::loadview('resepsionis.guestin.bill',['tamu'=>$tamu]);
+        $filename = 'Bill #'.$id.'.pdf';
+        return $pdf->stream($filename);
     }
 
     public function ajaxTamuHotel(){
