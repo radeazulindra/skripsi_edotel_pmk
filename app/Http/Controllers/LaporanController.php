@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use PDF;
 
 use App\TamuHotel;
+use App\Barang;
+use App\BarangKeluar;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LaporanController extends Controller
 {
@@ -24,27 +27,27 @@ class LaporanController extends Controller
     public function printLpTransaksi(Request $request){
         $monthYear = $request->input('monthyear');
         $data = explode('-',$monthYear);
-        // dd($monthyear);
-        // $tamu = TamuHotel::all();
+
         $bulan = array (1 =>   'Januari',
-				'Februari',
-				'Maret',
-				'April',
-				'Mei',
-				'Juni',
-				'Juli',
-				'Agustus',
-				'September',
-				'Oktober',
-				'November',
-				'Desember'
-			);
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+        );
+
         $monthName = $bulan[ (int)$data[1] ];
         $yearName = $data[0];
 
-        $todayDate = date("d")." ".$bulan[ (int)date("m")]." ".date("Y");
+        $title = 'Laporan Transaksi Tamu Edotel Pamekasan - '.$monthName.' '.$yearName;
 
-        $title = 'Laporan Transaksi Edotel Pamekasan - '.$monthName.' '.$yearName;
+        $todayDate = date("d")." ".$bulan[ (int)date("m")]." ".date("Y");
         
         $tamu = TamuHotel::where('status','Check-Out')->whereMonth('tanggal_checkout',$data[1])->whereYear('tanggal_checkout',$data[0])->orderBy('tanggal_checkin', 'asc')->get();
  
@@ -55,12 +58,42 @@ class LaporanController extends Controller
         // return view('manajer.laporan.transtamu',['title'=>$title,'tamu'=>$tamu,'todayDate'=>$todayDate,'month'=>$monthName,'year'=>$yearName]);
     }
 
-    // public function printLpBarang($id){
-	//     // $tamu = TamuHotel::findOrFail($id);
- 
-	//     $pdf = PDF::loadview('resepsionis.guestin.bill',['tamu'=>$tamu]);
-    //     return $pdf->stream();
-    // }
+    public function printLpBarang(Request $request){
+        $monthYear = $request->input('monthyear');
+        $data = explode('-',$monthYear);
+
+        $bulan = array (1 =>   'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+        );
+
+        $monthName = $bulan[ (int)$data[1] ];
+        $yearName = $data[0];
+
+        $title = 'Laporan Penggunaan Barang Edotel Pamekasan - '.$monthName.' '.$yearName;
+
+        $todayDate = date("d")." ".$bulan[ (int)date("m")]." ".date("Y");
+
+        $barangKeluar = BarangKeluar::whereMonth('tanggal_keluar',$data[1])->whereYear('tanggal_keluar',$data[0])->orderBy('tanggal_keluar','asc')->get();
+
+        $barangList = Barang::all();
+
+        $barangSum = DB::table('barang_keluar')->select('barang.nama_barang',DB::raw('SUM(barang_keluar.jumlah) as total'))->rightJoin('barang','barang_keluar.id_barang','=','barang.id')->groupBy('barang.id')->orderBy('barang.id', 'asc')->get();
+
+        $pdf = PDF::loadview('manajer.laporan.penggunaanbrg',['title'=>$title,'barangKeluar'=>$barangKeluar,'barangList'=>$barangList,'barangSum'=>$barangSum,'todayDate'=>$todayDate,'month'=>$monthName,'year'=>$yearName]);
+        // $pdf->setPaper('A4', 'landscape');
+        return $pdf->stream();
+
+    }
 
     /**
      * Show the form for creating a new resource.

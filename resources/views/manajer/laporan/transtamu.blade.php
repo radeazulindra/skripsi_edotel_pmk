@@ -21,7 +21,7 @@
         }
     </style>
 </head>
-<body class="container-fluid">
+<body class="container">
     <header class="row">
         <div class="company-info">
             <h2 class="title">edoTEL Pamekasan</h2>
@@ -30,6 +30,7 @@
             <p class="float-right">{{$month}} {{$year}}</p>
         </div>
     </header>
+    <br>
     <section class="row">
         <table class="table table-sm">
             <thead class="thead-light">

@@ -58,10 +58,10 @@ Route::resource('barangkeluar', 'BarangKeluarController');
 
 // route manajer
 Route::resource('laporan', 'LaporanController');
-// Route::get('printlaptrans', [
-//     'as' => 'printlaptrans', 'uses' => 'LaporanController@printLpTransaksi']);
 Route::post('printtranstamu', [
-        'as' => 'printtranstamu', 'uses' => 'LaporanController@printLpTransaksi']);
+    'as' => 'printtranstamu', 'uses' => 'LaporanController@printLpTransaksi']);
+Route::post('printpenggunaanbrg', [
+    'as' => 'printpenggunaanbrg', 'uses' => 'LaporanController@printLpBarang']);
 
 // route ajax
 Route::get('ajaxkamar',

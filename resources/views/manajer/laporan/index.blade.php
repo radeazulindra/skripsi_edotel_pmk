@@ -22,15 +22,15 @@
                     </form>
                 </div>
                 <div class="col-6">
-                    <form action="" method="POST" class="row">
+                    <form action="{{ route('printpenggunaanbrg') }}" method="POST" class="row">
                         {{ csrf_field() }}
         
                         <h4 class="col-12">Laporan Bulanan Penggunaan Barang</h4>
                         <div class="col-8">
-                            <input name="tgl_checkin" type="month" class="form-control" required>
+                            <input name="monthyear" type="month" class="form-control" required>
                         </div>
                         <div class="col-4">
-                            <div class="btn btn-info">Lihat Laporan</div>
+                            <a href="" target="_blank"><input type="submit" class="btn btn-info" value="Lihat Laporan"></a>
                         </div>
                     </form>
                 </div>
