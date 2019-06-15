@@ -6,8 +6,8 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{$title}} | {{ config('app.name', 'Laravel') }}</title>
+    
+    <title>{{ ( !empty($title) ? $title : '') }} | {{ config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -52,8 +52,9 @@
 <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper" style="min-height:100vh">
-
+        {{!empty(Auth::user()->name) ? Auth::user()->name : 'X'}}
         @php
+        if (!empty($title)) {
             if ($title!='Login' && $title!='Register') {
         @endphp
             <!-- Sidebar -->
@@ -166,6 +167,7 @@
             <!-- End of Sidebar -->
         @php
             }
+        }
         @endphp
     
         <!-- Content Wrapper -->
@@ -183,17 +185,27 @@
                     </button>
                     
                     @php
+                    if (!empty($title)) {
                         if ($title!='Login' && $title!='Register') {
                     @endphp
                         <!-- Topbar Navbar -->
                         <ul class="navbar-nav ml-auto">
                             <div class="topbar-divider d-none d-sm-block"></div>
-                            <a class="dropdown-item" href="{{ route('login') }}">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Logout
+                            
+                            <a class="dropdown-item" href="{{ route('logout') }}" 
+                            onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Logout
                             </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
                         </ul>
                     @php
                         }
+                    }
                     @endphp
         
                 </nav>
