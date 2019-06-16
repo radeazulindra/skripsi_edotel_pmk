@@ -151,7 +151,6 @@ class ReservasiController extends Controller
             $reservasi->save();
         }
 
-        
         return redirect()->route('guestin.index');
     }
 

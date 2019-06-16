@@ -15,6 +15,7 @@ class Kamar extends Model
     {
         return $this->hasMany('App\ReservasiKamar','id_kamar');
     }
+    
     public function tagihan_tamu()
     {
         return $this->hasMany('App\TagihanTamu','id_kamar');
