@@ -97,12 +97,10 @@ class LaporanController extends Controller
 
         $barangList = Barang::all();
 
-        $barangSum = DB::table('barang_keluar')->select('barang.nama_barang',DB::raw('SUM(barang_keluar.jumlah) as total'))->rightJoin('barang','barang_keluar.id_barang','=','barang.id')->groupBy('barang.id')->orderBy('barang.id', 'asc')->get();
+        $barangSum = DB::table('barang_keluar')->select('barang.nama_barang',DB::raw('SUM(barang_keluar.jumlah) as total'))->rightJoin('barang','barang_keluar.id_barang','=','barang.id')->whereMonth('barang_keluar.tanggal_keluar',$data[1])->whereYear('barang_keluar.tanggal_keluar',$data[0])->groupBy('barang.id')->orderBy('barang.id', 'asc')->get();
 
         $pdf = PDF::loadview('manajer.laporan.penggunaanbrg',['title'=>$title,'barangKeluar'=>$barangKeluar,'barangList'=>$barangList,'barangSum'=>$barangSum,'todayDate'=>$todayDate,'month'=>$monthName,'year'=>$yearName]);
-        // $pdf->setPaper('A4', 'landscape');
         return $pdf->stream();
-
     }
 
     /**

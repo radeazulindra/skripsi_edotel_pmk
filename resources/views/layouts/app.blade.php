@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
-    <title>{{ ( !empty($title) ? $title : '') }} | {{ config('app.name', 'Laravel') }}</title>
+    <title>{{ ( !empty($title) ? $title.' | ' : '') }}{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -30,7 +30,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.semanticui.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/rowreorder/1.2.5/css/rowReorder.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
-
+    
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="{{ asset('js/app.js') }}" ></script>
@@ -47,16 +47,17 @@
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.semanticui.min.js" type="text/javascript"></script>
+    
+    {{-- Chart JS --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js" type="text/javascript"></script>
 
 </head>
 <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper" style="min-height:100vh">
-        {{!empty(Auth::user()->name) ? Auth::user()->name : 'X'}}
-        @php
-        if (!empty($title)) {
-            if ($title!='Login' && $title!='Register') {
-        @endphp
+
+        @if (!empty(Auth::user()))
             <!-- Sidebar -->
             <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
         
@@ -82,32 +83,94 @@
                 <!-- Divider -->
                 <hr class="sidebar-divider my-0">
 
-                <!-- Nav Item - Reservasi -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('reservasi.index') }}">
-                        <i class="fas fa-fw fa-bell"></i>
-                        <span>Reservasi</span>
-                    </a>
-                </li>
+                @if (Auth::user()->type != 'store_keeper')
+                    <!-- Nav Item - Reservasi -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('reservasi.index') }}">
+                            <i class="fas fa-fw fa-bell"></i>
+                            <span>Reservasi</span>
+                        </a>
+                    </li>
 
-                <!-- Nav Item - Guest In -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('guestin.index') }}">
-                        <i class="fas fa-fw fa-hotel"></i>
-                        <span>Guest List</span>
-                    </a>
-                </li>
+                    <!-- Nav Item - Guest In -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('guestin.index') }}">
+                            <i class="fas fa-fw fa-hotel"></i>
+                            <span>Guest List</span>
+                        </a>
+                    </li>
 
-                <!-- Nav Item - Cari Kamar -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('carikamar.index') }}">
-                        <i class="fas fa-fw fa-calendar"></i>
-                        <span>Cari Kamar</span>
-                    </a>
-                </li>
+                    <!-- Nav Item - Cari Kamar -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('carikamar.index') }}">
+                            <i class="fas fa-fw fa-calendar"></i>
+                            <span>Cari Kamar</span>
+                        </a>
+                    </li>
 
-                <!-- Divider -->
-                <hr class="sidebar-divider my-0">
+                    <!-- Divider -->
+                    <hr class="sidebar-divider my-0">
+                @endif
+                
+                @if (Auth::user()->type != 'store_keeper')
+                    <!-- Nav Item - Menej Kamar -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('kamar.index')}}">
+                            <i class="fas fa-fw fa-bed"></i>
+                            <span>Manajemen Kamar</span>
+                        </a>
+                    </li>
+
+                    <!-- Divider -->
+                    <hr class="sidebar-divider my-0">
+                @endif
+
+                @if (Auth::user()->type != 'receptionist')  
+                    <!-- Nav Item - Menej Barang -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('barang.index') }}">
+                            <i class="fas fa-fw fa-boxes"></i>
+                            <span>Manajemen Barang</span>
+                        </a>
+                    </li>
+
+                    <!-- Divider -->
+                    <hr class="sidebar-divider my-0">
+                @endif
+
+                @if (Auth::user()->type != 'receptionist')
+                    <!-- Nav Item - Barang Masuk -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('barangmasuk.index') }}">
+                            <i class="fas fa-fw fa-sign-in-alt"></i>
+                            <span>Barang Masuk</span>
+                        </a>
+                    </li>
+
+                    <!-- Nav Item - Barang Keluar -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('barangkeluar.index') }}">
+                            <i class="fas fa-fw fa-sign-out-alt"></i>
+                            <span>Barang Keluar</span>
+                        </a>
+                    </li>
+
+                    <!-- Divider -->
+                    <hr class="sidebar-divider my-0">
+                @endif
+
+                @if (Auth::user()->type == 'manager' || Auth::user()->type == 'super_admin' )                
+                    <!-- Nav Item - Laporan -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('laporan.index') }}">
+                            <i class="fas fa-fw fa-clipboard"></i>
+                            <span>Laporan</span>
+                        </a>
+                    </li>
+
+                    <!-- Divider -->
+                    <hr class="sidebar-divider my-0">
+                @endif
 
                 <!-- Nav Item - Menej Pelanggan -->
                 {{-- <li class="nav-item">
@@ -116,60 +179,11 @@
                         <span>Manajemen Pelanggan</span>
                     </a>
                 </li> --}}
-                
-                <!-- Nav Item - Menej Kamar -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('kamar.index')}}">
-                        <i class="fas fa-fw fa-bed"></i>
-                        <span>Manajemen Kamar</span>
-                    </a>
-                </li>
-
-                <!-- Nav Item - Menej Barang -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('barang.index') }}">
-                        <i class="fas fa-fw fa-boxes"></i>
-                        <span>Manajemen Barang</span>
-                    </a>
-                </li>
-
-                <!-- Divider -->
-                <hr class="sidebar-divider my-0">
-
-                <!-- Nav Item - Barang Masuk -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('barangmasuk.index') }}">
-                        <i class="fas fa-fw fa-sign-in-alt"></i>
-                        <span>Barang Masuk</span>
-                    </a>
-                </li>
-
-                <!-- Nav Item - Barang Keluar -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('barangkeluar.index') }}">
-                        <i class="fas fa-fw fa-sign-out-alt"></i>
-                        <span>Barang Keluar</span>
-                    </a>
-                </li>
-
-                <!-- Divider -->
-                <hr class="sidebar-divider my-0">
-
-                <!-- Nav Item - Laporan -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('laporan.index') }}">
-                        <i class="fas fa-fw fa-clipboard"></i>
-                        <span>Laporan</span>
-                    </a>
-                </li>
-        
+    
             </ul>
             <!-- End of Sidebar -->
-        @php
-            }
-        }
-        @endphp
-    
+        @endif
+            
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
     
@@ -178,19 +192,13 @@
         
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-        
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    
-                    @php
-                    if (!empty($title)) {
-                        if ($title!='Login' && $title!='Register') {
-                    @endphp
+            
+                    @if (!empty(Auth::user()))
                         <!-- Topbar Navbar -->
                         <ul class="navbar-nav ml-auto">
-                            <div class="topbar-divider d-none d-sm-block"></div>
+                            <a class="dropdown-item disabled" href="#" role="button">
+                                {{ Auth::user()->name }}
+                            </a>
                             
                             <a class="dropdown-item" href="{{ route('logout') }}" 
                             onclick="event.preventDefault();
@@ -203,11 +211,15 @@
                                 @csrf
                             </form>
                         </ul>
-                    @php
-                        }
-                    }
-                    @endphp
-        
+                    @else
+                        <!-- Sidebar - Brand -->
+                        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+                            <div class="sidebar-brand-icon">
+                                <i class="fas fa-hotel"></i>
+                            </div>
+                            <div class="sidebar-brand-text mx-3">Edotel Pamekasan</div>
+                        </a>
+                    @endif
                 </nav>
                 <!-- End of Topbar -->
         
