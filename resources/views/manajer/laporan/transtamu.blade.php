@@ -7,31 +7,8 @@
     <title>{{$title}}</title>
 
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/pdf.css') }}" rel="stylesheet">
 
-    <style>
-        header .company-info {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #BDB9B9;
-            margin-bottom: 20px;
-        }
-        header .company-info .title{
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #2A8EAC;
-            font-weight: 600;
-            font-size: 2em;
-            margin-bottom: 0;
-        }
-        header .company-info .subtitle{
-            color: #BDB9B9;
-            margin-top: 0;
-        }
-        hr {
-            height: 1px;
-            /* Set the hr color */
-            color: #2A8EAC;
-            background-color: #2A8EAC; /* Modern Browsers */
-        }
-    </style>
 </head>
 <body class="container-fluid">
     <header>

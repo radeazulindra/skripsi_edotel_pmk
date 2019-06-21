@@ -78,9 +78,25 @@ class GuestInController extends Controller
     }
 
     public function printBill($id){
-	    $tamu = TamuHotel::findOrFail($id);
-        $pdf = PDF::loadview('resepsionis.guestin.bill',['tamu'=>$tamu]);
-        $filename = 'Bill #'.$id.'.pdf';
+        $tamu = TamuHotel::findOrFail($id);
+        
+        $bulan = array (1 =>   'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+        );
+        $todayDate = date("d")." ".$bulan[ (int)date("m")]." ".date("Y");
+
+        $pdf = PDF::loadview('resepsionis.guestin.bill',['tamu'=>$tamu,'todayDate'=>$todayDate]);
+        $filename = 'BILL #'.$id.'.pdf';
         return $pdf->stream($filename);
     }
 
