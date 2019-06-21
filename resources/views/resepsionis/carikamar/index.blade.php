@@ -7,19 +7,21 @@
             <h6 class="m-0 font-weight-bold text-primary">{{$title}}</h6>
         </div>
         <div class="card-body">
-            <div class="form-row">
-                <div class="col-6">
-                    <label for="tgl_checkin">Tanggal Check-In *</label>
-                    <input name="tgl_checkin" id="dateFrom" type="date" class="form-control" required>
+            <form action="" onsubmit="return false">
+                <div class="form-row">
+                    <div class="col-6">
+                        <label for="tgl_checkin">Tanggal Check-In *</label>
+                        <input name="tgl_checkin" id="dateFrom" type="date" class="form-control" required>
+                    </div>
+                    <div class="col-6">
+                        <label for="tgl_checkout">Tanggal Check-Out *</label>
+                        <input name="tgl_checkout" id="dateTo" type="date" class="form-control" required>
+                    </div>
+                    <div class="col-12 my-3">
+                        <input type="submit" class="btn btn-info float-right" onclick="buatSelector()" value="Cari Kamar">
+                    </div>
                 </div>
-                <div class="col-6">
-                    <label for="tgl_checkout">Tanggal Check-Out *</label>
-                    <input name="tgl_checkout" id="dateTo" type="date" class="form-control" required>
-                </div>
-                <div class="col-12 my-3">
-                    <div class="btn btn-info float-right" onclick="buatSelector()">Cari Kamar</div>
-                </div>
-            </div>
+            </form>
             <div class="row" id="daftar_kamar"></div>
             <div class="row" id="resv" style="display:none">
                 <a href="{{ route('reservasi.create') }}" class="col-12 my-3">
@@ -30,7 +32,6 @@
     </div>
 
 <script>
-
     // SET TODAY'S DATE AS MINIMUM RESERVATION DATE
     $(function(){
         var dtToday = new Date();
@@ -76,6 +77,10 @@
     function buatSelector(){
         var dateFrom = document.getElementById("dateFrom").value;
         var dateTo = document.getElementById("dateTo").value;
+        // console.log(dateFrom);
+        // if (dateFrom == '' || dateTo == '' ) {
+        //     alert("Form wajib diisi!");
+        // }
         window.dtFrom = new Date(dateFrom);
         window.dtTo = new Date(dateTo);
         var tempLantai = -1;

@@ -49,7 +49,6 @@
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.semanticui.min.js" type="text/javascript"></script>
     
     {{-- Chart JS --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js" type="text/javascript"></script>
 
 </head>

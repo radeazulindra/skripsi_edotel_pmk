@@ -12,7 +12,7 @@
                     <form action="{{ route('printtranstamu') }}" method="POST" class="row">
                         {{ csrf_field() }}
 
-                        <h4 class="col-12">Laporan Bulanan Transaksi Tamu</h4>
+                        <p class="col-12">Laporan Bulanan Transaksi Tamu *</p>
                         <div class="col-8">
                             <input name="monthyear" type="month" class="form-control" required>
                         </div>
@@ -25,7 +25,7 @@
                     <form action="{{ route('printpenggunaanbrg') }}" method="POST" class="row">
                         {{ csrf_field() }}
         
-                        <h4 class="col-12">Laporan Bulanan Penggunaan Barang</h4>
+                        <p class="col-12">Laporan Bulanan Penggunaan Barang *</p>
                         <div class="col-8">
                             <input name="monthyear" type="month" class="form-control" required>
                         </div>

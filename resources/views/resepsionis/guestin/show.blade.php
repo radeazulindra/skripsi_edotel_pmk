@@ -75,7 +75,7 @@
                                     {{$item->nama_tagihan}}
                                     @if (stripos($item->nama_tagihan,'kamar') === false)
                                         <a href="{{ route('destroytagihan', ['id'=>$item->id]) }}">
-                                            <button style="display: {{ $tamu->status === 'Check-In' ? '' : 'none' }}" class="btn btn-danger btn-sm float-right">Hapus Tagihan</button>
+                                            <button style="display: {{ $tamu->status === 'Check-In' ? '' : 'none' }}" class="btn btn-danger btn-sm float-right" onclick="return confirm('Apakah anda yakin ingin menghapus tagihan ini?');">Hapus Tagihan</button>
                                         </a>
                                     @endif
                                 </td>
