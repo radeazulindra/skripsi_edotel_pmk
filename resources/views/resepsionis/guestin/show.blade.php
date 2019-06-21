@@ -75,7 +75,7 @@
                                     {{$item->nama_tagihan}}
                                     @if (stripos($item->nama_tagihan,'kamar') === false)
                                         <a href="{{ route('destroytagihan', ['id'=>$item->id]) }}">
-                                            <button style="display: {{ $tamu->status === 'Check-In' ? '' : 'none' }}" class="btn btn-danger btn-sm float-right" onclick="return confirm('Apakah anda yakin ingin menghapus tagihan ini?');">Hapus Tagihan</button>
+                                            <button style="display: {{ $tamu->status === 'Check-In' ? '' : 'none' }}" class="btn btn-danger btn-sm float-right" onclick="return confirm('Apakah anda yakin ingin menghapus tagihan {{$item->nama_tagihan}}?');">Hapus Tagihan</button>
                                         </a>
                                     @endif
                                 </td>
@@ -106,8 +106,8 @@
                         {{ csrf_field() }}
                         <input type="text" name="id_tamu" value="{{$tamu->id}}" hidden>
                         
-                        <select class="form-control" name="id_kamar" required {{$tamu->status === 'Check-In' ? '' : 'disabled' }}>
-                            <option></option>
+                        <select class="form-control" name="id_kamar" required>
+                            <option value="">Nomor Kamar</option>
                             @foreach ($tamu->tagihan_tamu as $item)
                                 @if (stripos($item->nama_tagihan,'kamar') !== false)
                                     <option value="{{$item->kamar->id}}">Kamar {{$item->kamar->no_kamar}}</option>
@@ -116,19 +116,27 @@
                         </select>
                         
                         <div class="form-group">
-                            <input name="nama_tagihan" type="text" class="form-control" placeholder="Nama Tagihan" required {{$tamu->status === 'Check-In' ? '' : 'disabled' }}>
-                            <input name="besaran" type="number" class="form-control" placeholder="Besaran" required {{$tamu->status === 'Check-In' ? '' : 'disabled' }}>
+                            <datalist id="tagihanList">
+                                <select name="nama_tagihan">
+                                    <option value="Air Mineral">Air Mineral</option>
+                                    <option value="Diskon">Diskon</option>
+                                    <option value="Extra Bed">Extra Bed</option>
+                                    <option value="Tanpa Breakfast">Tanpa Breakfast</option>
+                                </select>
+                            </datalist>
+                            <input name="nama_tagihan" id="nama_tagihan" type="text" class="form-control" placeholder="Nama Tagihan" required list="tagihanList" autocomplete="off">
+                            <input name="besaran" id="besaran" type="number" class="form-control" placeholder="Besaran" required>
                         </div>
                         
                         <label class="radio-inline m-1">
-                            <input type="radio" name="jenis_tagihan" value="+" required {{$tamu->status === 'Check-In' ? '' : 'disabled' }}> Tagihan Tambahan
+                            <input id="radiotambah" type="radio" name="jenis_tagihan" value="+" required> Tagihan Tambahan
                         </label>
                         <label class="radio-inline m-1">
-                            <input type="radio" name="jenis_tagihan" value="-" {{$tamu->status === 'Check-In' ? '' : 'disabled' }}> Potongan Harga
+                            <input id="radiopotong" type="radio" name="jenis_tagihan" value="-"> Potongan Harga
                         </label>
 
                         <div class="float-right">
-                            <button {{$tamu->status === 'Check-In' ? '' : 'disabled' }} class="btn btn-success">Tambah Tagihan</button>
+                            <button class="btn btn-success">Tambah Tagihan</button>
                         </div>
                     </form>
                     <br><br>
@@ -146,4 +154,17 @@
             </div>
         </div>
     </div>
+
+    <script>
+    $( "#nama_tagihan" ).on( "change", function() {
+        console.log(this.value);
+        if (this.value == 'Extra Bed') {
+            $( "#besaran" ).val(75000);
+            $("#radiotambah").prop("checked", true);
+        } else if (this.value == 'Tanpa Breakfast') {
+            $( "#besaran" ).val(15000);
+            $("#radiopotong").prop("checked", true);
+        }
+    });
+    </script>
 @endsection

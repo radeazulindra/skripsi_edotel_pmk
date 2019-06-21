@@ -10,6 +10,7 @@
 
     <style>
         header .company-info {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #BDB9B9;
             margin-bottom: 20px;
         }
@@ -18,24 +19,38 @@
             color: #2A8EAC;
             font-weight: 600;
             font-size: 2em;
+            margin-bottom: 0;
+        }
+        header .company-info .subtitle{
+            color: #BDB9B9;
+            margin-top: 0;
+        }
+        hr {
+            height: 1px;
+            /* Set the hr color */
+            color: #2A8EAC;
+            background-color: #2A8EAC; /* Modern Browsers */
         }
     </style>
 </head>
 <body>
     <header>
         <div class="row">
-            <div class="company-info col-12">
-                <h2 class="title">edoTEL Pamekasan</h2>
-                <span>Laporan Penggunaan Barang Bulanan</span>
+            <div class="company-info">
+                <h2 class="title">{{ config('app.name', 'Laravel') }}</h2>
+                <p class="subtitle">Jl. Kabupaten No. 103, Pamekasan | (0324) 335156</p>
+                <div class="title" style="background-color:#2A8EAC">
+                    <p class="text-center" style="font-size:xx-large;color:white;padding-top:8px">Laporan Bulanan Penggunaan Barang</p>
+                </div>
             </div>
-            <div class="col-12">
+            <div>
                 <p class="float-right">{{$month}} {{$year}}</p>
             </div>
         </div>
     </header>
     <section>
         <div class="row">
-            <p class="text-center" style="font-size: large;">Summary Penggunaan Barang</p>
+            <p class="text-center" style="font-size:medium;">Summary Penggunaan Barang</p>
             <hr>
         </div>
         <div class="row">
@@ -89,7 +104,7 @@
         <br>
         
         <div class="row">
-            <p class="text-center" style="font-size: large;">Detail Penggunaan Barang</p>
+            <p class="text-center" style="font-size:medium;">Detail Penggunaan Barang</p>
             <hr>
         </div>
         @foreach ($barangList as $itemList)
@@ -161,7 +176,7 @@
                     <td>Pamekasan, {{$todayDate}}</td>
                 </tr>
                 <tr>
-                    <td>Manajer</td>
+                    <td>Manager</td>
                     <td>Store Keeper</td>
                 </tr>
                 <tr>
@@ -173,12 +188,8 @@
                     <td><br></td>
                 </tr>
                 <tr>
-                    <td>Radea</td>
-                    <td>Radea</td>
-                </tr>
-                <tr>
-                    <td>155150400111066</td>
-                    <td>155150400111066</td>
+                    <td>____________________</td>
+                    <td>____________________</td>
                 </tr>
             </tbody>
         </table>

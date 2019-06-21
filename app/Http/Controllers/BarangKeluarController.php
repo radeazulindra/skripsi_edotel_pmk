@@ -133,7 +133,15 @@ class BarangKeluarController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $bKeluar = BarangKeluar::findOrFail($id);
+        $barang = Barang::findOrFail($bKeluar->id_barang);
+
+        $barang->jumlah += $bKeluar->jumlah; // mengembalikan jumlah menjadi sebelum mengeluarkan barang
+        
+        if ($bKeluar->delete()) {
+            $barang->save(); // mengupdate jumlah setelah menghapus barang
+            return redirect()->route('barangkeluar.index')->with('message','Berhasil menghapus catatan barang keluae!');
+        }
     }
 
     /**

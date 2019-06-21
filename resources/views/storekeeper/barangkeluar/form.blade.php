@@ -106,9 +106,9 @@
             // use the setCustomValidity function of the Validation API
             // to provide an user feedback if the value does not exist in the datalist
             if (optionFound) {
-            this.setCustomValidity('');
+                this.setCustomValidity('');
             } else {
-            this.setCustomValidity('Please select a valid value.');
+                this.setCustomValidity('Please select a valid value.');
             }
         });
     }

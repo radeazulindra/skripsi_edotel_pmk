@@ -44,7 +44,12 @@
                                 <td>
                                     <a href="{{ route('barangkeluar.edit', ['id'=>$item->id]) }}">
                                         <button class="btn btn-warning btn-sm">Edit</button>
-                                    </a><br>
+                                    </a>
+                                    <form method="POST" action="{{ route('barangkeluar.destroy', ['id'=>$item->id]) }}" accept-charset="UTF-8" style="display:inline">
+                                        {{ method_field('DELETE') }}
+                                        {{ csrf_field() }}
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin ingin menghapus catatan barang keluar {{ $item->Barang->nama_barang }}?')">Hapus</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

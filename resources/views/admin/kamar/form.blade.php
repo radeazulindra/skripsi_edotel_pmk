@@ -15,9 +15,17 @@
         <input name="harga" type="number" class="form-control" required value="{{ isset($kamar->harga) ? $kamar->harga : ''}}">
     </div>
 </div>
-<div class="form-group">
+{{-- <div class="form-group">
     <label>Status</label>
     <input name="status" type="text" class="form-control" required value="{{ isset($kamar->status) ? $kamar->status : ''}}">
+</div> --}}
+<div class="form-group">
+    <label>Status Kamar</label>
+    <select class="form-control" name="jenis_barang" required>
+        <option value="">Status Kamar</option>
+        <option value="Tersedia" {{ isset($kamar->status) && $kamar->status == "Tersedia" ? 'selected' : '' }}>Tersedia</option>
+        <option value="Dalam Perbaikan" {{ isset($kamar->status) && $kamar->status == "Dalam Perbaikan" ? 'selected' : '' }}>Dalam Perbaikan</option>
+    </select>
 </div>
 <hr>
 <div class="float-right">

@@ -55,7 +55,7 @@ class LaporanController extends Controller
         $monthName = $bulan[ (int)$data[1] ];
         $yearName = $data[0];
 
-        $title = 'Laporan Transaksi Tamu Edotel Pamekasan - '.$monthName.' '.$yearName;
+        $title = 'Laporan Bulanan Transaksi Tamu edoTEL SMKN 3 Pamekasan - '.$monthName.' '.$yearName;
 
         $todayDate = date("d")." ".$bulan[ (int)date("m")]." ".date("Y");
         
@@ -89,7 +89,7 @@ class LaporanController extends Controller
         $monthName = $bulan[ (int)$data[1] ];
         $yearName = $data[0];
 
-        $title = 'Laporan Penggunaan Barang Edotel Pamekasan - '.$monthName.' '.$yearName;
+        $title = 'Laporan Bulanan Penggunaan Barang edoTEL SMKN 3 Pamekasan - '.$monthName.' '.$yearName;
 
         $todayDate = date("d")." ".$bulan[ (int)date("m")]." ".date("Y");
 

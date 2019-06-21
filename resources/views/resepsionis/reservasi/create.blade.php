@@ -29,7 +29,7 @@
 
 <script>
 
-    // SET TODAY'S DATE AS MINIMUM RESERVATION DATE
+    // SET TODAY'S DATE AS MINIMUM RESERVATION DATE AND SET DAY AFTER TUMORROW AS MINIMUM RESERVATION CHECKOUT
     $(function(){
         var dtToday = new Date();
         var month = dtToday.getMonth() + 1;
@@ -41,6 +41,17 @@
             day = '0' + day.toString();
         var curDate = year + '-' + month + '-' + day;
         $('#dateFrom').attr('min', curDate);
+
+        var setMinDtTo = new Date(curDate);
+        var month = setMinDtTo.getMonth() + 1;
+        var day = setMinDtTo.getDate() + 1;
+        var year = setMinDtTo.getFullYear();
+        if(month < 10)
+            month = '0' + month.toString();
+        if(day < 10)
+            day = '0' + day.toString();
+        var minDateTo = year + '-' + month + '-' + day;
+        $("#dateTo").attr("min", minDateTo);
     });
 
     // jika input tanggal checkin diganti, hapus daftar kamar tersedia, kamar dipilih, dan total harga
@@ -63,7 +74,7 @@
         listReservasiKamar = [];
     });
 
-    // jika input tanggal checkin diganti, hapus daftar kamar tersedia, kamar dipilih, dan total harga
+    // jika input tanggal checkout diganti, hapus daftar kamar tersedia, kamar dipilih, dan total harga
     $("#dateTo").on('change', function(){
         $("#daftar_kamar").empty();
         $("#total_harga").empty();
@@ -118,25 +129,6 @@
         }
     });
 
-    // GET LANTAI
-    // var listLantai = [];
-    // $.get( "{{ route('ajaxkamar') }}", function(respond){
-    //     var data = JSON.parse(respond);
-    //     lt = 0;
-    //     for (let i = 0; i <= data.length;) {
-    //         var lantaiHotel = [];
-    //         var curLt = data[i]['no_kamar'].charAt(0);
-    //         if (lt === curLt) {
-    //             console.log(data[i]['no_kamar']);
-    //             i++;
-    //         } else {
-    //             lt++;
-    //             console.log('setLt'+lt);
-    //             window.listLantai.push(lt);
-    //         }
-    //     }
-    // });
-
     // FIND KAMAR TERSEDIA
     var dtFrom; //INPUT DATE FROM
     var dtTo; // INPUT DATE TO
@@ -166,20 +158,6 @@
                     statusKamar = "disabled";
                 }
                 var lamaMenginap = parseInt((window.dtTo-window.dtFrom)/(24*3600*1000)) ;
-
-                // if(tempLantai == -1){
-                //     tempLantai = noKamar.charAt(0);
-                //     console.log("lantai "+tempLantai);
-                //     var setDiv = '<div id="lantai'+tempLantai+'"> </div><hr>'
-                //     $("#daftar_kamar").append(setDiv);
-                // }
-                
-                // if(noKamar.charAt(0) != tempLantai){
-                //     tempLantai = noKamar.charAt(0);
-                //     console.log("lantai "+tempLantai);
-                //     var setDiv = '<div id="lantai'+tempLantai+'"> </div><hr>'
-                //     $("#daftar_kamar").append(setDiv);
-                // }
 
                 setHTML += '<input id="room-'+idKamar+'" onclick="setTotalHarga('+hargaKamar+','+idKamar+','+lamaMenginap+')" class="room-select" '+statusKamar+' type="checkbox" value="'+idKamar+'" name="room[]" /><label for="room-'+idKamar+'" class="room '+isOccupied+'">'+noKamar+'<br>'+tipeKamar+'<br>Room</label>';
                 // $("#lantai"+tempLantai).append(setHTML);

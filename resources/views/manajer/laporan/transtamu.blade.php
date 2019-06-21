@@ -10,6 +10,7 @@
 
     <style>
         header .company-info {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #BDB9B9;
             margin-bottom: 20px;
         }
@@ -18,92 +19,120 @@
             color: #2A8EAC;
             font-weight: 600;
             font-size: 2em;
+            margin-bottom: 0;
+        }
+        header .company-info .subtitle{
+            color: #BDB9B9;
+            margin-top: 0;
+        }
+        hr {
+            height: 1px;
+            /* Set the hr color */
+            color: #2A8EAC;
+            background-color: #2A8EAC; /* Modern Browsers */
         }
     </style>
 </head>
-<body class="container">
-    <header class="row">
-        <div class="company-info">
-            <h2 class="title">edoTEL Pamekasan</h2>
-            <span>Laporan Transaksi Bulanan</span>
-
-            <p class="float-right">{{$month}} {{$year}}</p>
+<body class="container-fluid">
+    <header>
+        <div class="row">
+            <div class="company-info">
+                <h2 class="title">{{ config('app.name', 'Laravel') }}</h2>
+                <p class="subtitle">Jl. Kabupaten No. 103, Pamekasan | (0324) 335156</p>
+                <div class="title" style="background-color:#2A8EAC">
+                    <p class="text-center" style="font-size:xx-large;color:white;padding-top:8px">Laporan Bulanan Transaksi Tamu</p>
+                </div>
+            </div>
+            <div>
+                <p class="float-right">{{$month}} {{$year}}</p>
+            </div>
         </div>
     </header>
     <br>
-    <section class="row">
-        <table class="table table-sm">
-            <thead class="thead-light">
-                <tr>
-                    <th>No</th>
-                    <th>Nama Tamu</th>
-                    <th>Tagihan</th>
-                    <th>Tgl Check-In</th>
-                    <th>Tgl Check-Out</th>
-                    <th>Lama Menginap</th>
-                    <th>Harga</th>
-                </tr>
-            </thead>
-            <tbody>
-                @php
-                    $varnumb = 1;
-                @endphp
-                @foreach ($tamu as $item)
-                    @foreach ($item->tagihan_tamu as $itemtagihan)
-                    <tr>
-                            <td>{{$varnumb++}}</td>
-                            <td>{{$item->nama}}</td>
-                            <td>{{$itemtagihan->nama_tagihan}}</td>
-                            <td>{{$item->tanggal_checkin}}</td>
-                            <td>{{$item->tanggal_checkout}}</td>
-                            <td>
-                                @php
-                                    $from = date_create($item->tanggal_checkin);
-                                    $to = date_create($item->tanggal_checkout);
-                                    $diff = date_diff($from, $to);
-                                @endphp
-                                {{$diff->format("%a")}} Malam
-                            </td>
-                            <td>Rp. {{number_format($itemtagihan->besaran)}}</td>
-                        </tr>
-                    @endforeach
-                @endforeach
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th colspan="6">Total</th>
-                    <th>
-                        @php
-                            $tagihan=0;
-                        @endphp
-                        @foreach ($tamu as $item)
-                            @php
-                                $tagihan+=$item->total_tagihan;
-                            @endphp
+    <section>
+        <div class="row">
+            <table class="table table-sm">
+                <thead class="thead-light">
+                    <tr class="text-center">
+                        <th>No</th>
+                        <th>Nama Tamu</th>
+                        <th>Tagihan</th>
+                        <th>Tgl Check-In</th>
+                        <th>Tgl Check-Out</th>
+                        <th>Lama Menginap</th>
+                        <th>Harga</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                        $varnumb = 1;
+                    @endphp
+                    @foreach ($tamu as $item)
+                        @foreach ($item->tagihan_tamu as $itemtagihan)
+                        <tr>
+                                <td class="text-center">{{$varnumb++}}</td>
+                                <td>{{$item->nama}}</td>
+                                <td>{{$itemtagihan->nama_tagihan}}</td>
+                                <td class="text-center">{{$item->tanggal_checkin}}</td>
+                                <td class="text-center">{{$item->tanggal_checkout}}</td>
+                                <td class="text-center">
+                                    @php
+                                        $from = date_create($item->tanggal_checkin);
+                                        $to = date_create($item->tanggal_checkout);
+                                        $diff = date_diff($from, $to);
+                                    @endphp
+                                    {{$diff->format("%a")}} Malam
+                                </td>
+                                <td>Rp. {{number_format($itemtagihan->besaran)}}</td>
+                            </tr>
                         @endforeach
-                        Rp. {{ number_format($tagihan) }}
-                    </th>
-                </tr>
-            </tfoot>
-        </table>
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="6" class="text-center">Grand Total</th>
+                        <th>
+                            @php
+                                $tagihan=0;
+                            @endphp
+                            @foreach ($tamu as $item)
+                                @php
+                                    $tagihan+=$item->total_tagihan;
+                                @endphp
+                            @endforeach
+                            Rp. {{ number_format($tagihan) }}
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
     </section>
     <br>
-    <footer class="row">
-        <div class="col-6">
-            <br><br>
-            <p class="text-center">Manajer</p>
-            <br><br><br>
-            <p class="text-center">Radea</p>
-            <p class="text-center">155150400111066</p>
-        </div>
-        <div class="col-6 float-right">
-            <p class="text-center">Pamekasan, {{$todayDate}}</p>
-            <br>
-            <p class="text-center">Keuangan</p>
-            <br><br><br>
-            <p class="text-center">Radea</p>
-            <p class="text-center">155150400111066</p>
-        </div>
+    <footer>
+        <table class="table table-borderless">
+            <tbody class="text-center">
+                <tr>
+                    <td><br></td>
+                    <td>Pamekasan, {{$todayDate}}</td>
+                </tr>
+                <tr>
+                    <td>Manager</td>
+                    <td>Accounting</td>
+                </tr>
+                <tr>
+                    <td><br></td>
+                    <td><br></td>
+                </tr>
+                <tr>
+                    <td><br></td>
+                    <td><br></td>
+                </tr>
+                <tr>
+                    <td>____________________</td>
+                    <td>____________________</td>
+                </tr>
+            </tbody>
+        </table>
     </footer>
 </body>
 </html>

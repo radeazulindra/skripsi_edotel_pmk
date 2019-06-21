@@ -60,8 +60,8 @@ class BarangController extends Controller
         if ($count > 0) {
             return redirect()->route('barang.create')->with('message','Nama barang telah tersedia!');
         } else {
-            Kamar::create($data);
-            return redirect()->route('kamar.index');
+            Barang::create($data);
+            return redirect()->route('barang.index');
         }
     }
 

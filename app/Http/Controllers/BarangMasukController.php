@@ -54,12 +54,13 @@ class BarangMasukController extends Controller
             'gambar_nota' => 'required|image|mimes:jpeg,png,jpg',
         ]);
 
+        $namaBarang = $request->input('nama_barang');
+
         $file = $request->file('gambar_nota');
         $fileName = time().'_'.$namaBarang.'.'.$file->getClientOriginalExtension();
         $destinationPath = public_path('/storage');
         $file->move($destinationPath, $fileName);
 
-        $namaBarang = $request->input('nama_barang');
         $barang = Barang::where('nama_barang', $namaBarang)->first();
 
         $data = array(
@@ -143,7 +144,15 @@ class BarangMasukController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $bMasuk = BarangMasuk::findOrFail($id);
+        $barang = Barang::findOrFail($bMasuk->id_barang);
+
+        $barang->jumlah -= $bMasuk->jumlah; // mengembalikan jumlah menjadi sebelum memasukkan barang
+        
+        if ($barangMasuk = BarangMasuk::where('id', $id)->delete()) {
+            $barang->save(); // mengupdate jumlah setelah menghapus barang
+            return redirect()->route('barangmasuk.index')->with('message','Berhasil menghapus catatan barang masuk!');
+        }
     }
 
     /**

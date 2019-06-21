@@ -65,7 +65,7 @@
                     <div class="sidebar-brand-icon">
                         <i class="fas fa-hotel"></i>
                     </div>
-                    <div class="sidebar-brand-text mx-3">Edotel Pamekasan</div>
+                    <div class="sidebar-brand-text mx-3">{{ config('app.name', 'Laravel') }}</div>
                 </a>
             
                 <!-- Divider -->
@@ -216,7 +216,7 @@
                             <div class="sidebar-brand-icon">
                                 <i class="fas fa-hotel"></i>
                             </div>
-                            <div class="sidebar-brand-text mx-3">Edotel Pamekasan</div>
+                            <div class="sidebar-brand-text mx-3">{{ config('app.name', 'Laravel') }}</div>
                         </a>
                     @endif
                 </nav>
