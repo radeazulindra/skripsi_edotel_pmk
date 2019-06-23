@@ -18,7 +18,7 @@
                         <input name="tgl_checkout" id="dateTo" type="date" class="form-control" required>
                     </div>
                     <div class="col-12 my-3">
-                        <input type="submit" class="btn btn-info float-right" onclick="buatSelector()" value="Cari Kamar">
+                        <input type="submit" class="btn btn-info float-right" onclick="buatSelector()" value="Lihat Kamar">
                     </div>
                 </div>
             </form>

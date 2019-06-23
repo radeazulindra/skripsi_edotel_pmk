@@ -17,7 +17,7 @@
                     <label for="room-{{ $item->kamar->id }}" class="room selected">{{ $item->kamar->no_kamar }}<br>{{ $item->kamar->tipe_kamar }} Room</label>
                 @endforeach    
             @else
-                <div class="btn btn-info float-right" onclick="buatSelector()">Cari Kamar</div>
+                <div class="btn btn-info float-right" onclick="buatSelector()">Pilih Kamar</div>
             @endif
         </div>
     </div>

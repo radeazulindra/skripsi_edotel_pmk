@@ -145,7 +145,7 @@
             <div class="col-12 mt-5">
                 <div class="float-right">
                     <a href="{{ route('checkout', ['id'=>$tamu->id,'tagihan'=>$tagihan]) }}">
-                        <button class="btn btn-danger" style="display: {{ $tamu->status === 'Check-In' ? '' : 'none' }}">Check-Out</button>
+                        <button class="btn btn-danger" style="display: {{ $tamu->status === 'Check-In' ? '' : 'none' }}" onclick="return confirm('Apakah anda yakin ingin melakukan Check-Out tamu?');">Check-Out</button>
                     </a>
                     <a href="{{ route('printbill', ['id'=>$tamu->id]) }}" target="_blank">
                         <button class="btn btn-primary" style="display: {{ $tamu->status === 'Check-Out' ? '' : 'none' }}">Cetak Bill</button>

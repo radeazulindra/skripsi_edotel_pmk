@@ -147,10 +147,10 @@
                             <td>{{ $itemResv->status }}</td>
                             <td>
                                 @if ($itemResv->status == "Belum Konfirmasi")
-                                    <a href="{{ route('updateStatus', ['id'=>$itemResv->id,'newstatus'=>'Sudah Konfirmasi']) }}">
+                                    <a href="{{ route('updateStatus', ['id'=>$itemResv->id,'newstatus'=>'Sudah Konfirmasi']) }}" onclick="return confirm('Apakah anda yakin ingin melakukan konfirmasi kedatangan tamu?');">
                                         <button class="btn btn-success btn-sm">Konfirmasi</button>
                                     </a>
-                                    <a href="{{ route('updateStatus', ['id'=>$itemResv->id,'newstatus'=>'Batal Reservasi']) }}">
+                                    <a href="{{ route('updateStatus', ['id'=>$itemResv->id,'newstatus'=>'Batal Reservasi']) }}" onclick="return confirm('Apakah anda yakin ingin melakukan pembatalan reservasi?');">
                                         <button class="btn btn-danger btn-sm">Batal</button>
                                     </a>
                                 @elseif ($itemResv->status == "Sudah Konfirmasi")
