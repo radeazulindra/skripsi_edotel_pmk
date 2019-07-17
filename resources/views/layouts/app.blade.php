@@ -239,7 +239,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; EdoTEL Pamekasan 2019</span>
+                        <span>Copyright &copy; Edotel SMKN 3 Pamekasan 2019</span>
                     </div>
                 </div>
             </footer>
